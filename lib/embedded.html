@@ -47,6 +47,10 @@
     retryTimer = setInterval(l, 5 * 60 * 1000);
   }
 
+  intercomMessengerBridge.on('call-method', (methodName, arg1) => {
+    Intercom(methodName, arg1);
+  })
+
   Intercom('onUnreadCountChange', function (unreadCount) {
     // window._bridge("IntercomUnreadChange", { count: unreadCount })
   });
@@ -54,6 +58,4 @@
   Intercom('onHide', function () {
     // window._bridge("IntercomDidHide")
   });
-  setTimeout(() => Intercom('show'), 10000)
-  //var exampleSocket = new WebSocket("ws://www.example.com/socketserver", "protocolOne");
 </script>

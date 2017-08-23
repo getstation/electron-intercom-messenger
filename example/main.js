@@ -42,10 +42,12 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow)
 app.on('ready', () => {
-  electronIntercomMessenger.start({
+  const i = electronIntercomMessenger.start({
     app_id: "dznlehsz",
     hide_default_launcher: true
   });
+  setTimeout(() => i.show(), 10000)
+
 });
 
 // Quit when all windows are closed.
