@@ -1,61 +1,90 @@
-<script>
-  const { intercomMessengerBridge } = window;
+<html>
+  <head>
+    <script>
+      const { intercomMessengerBridge } = window;
 
-  const defaultSettings = {
-    hide_default_launcher: true
-  };
-  const settings = intercomMessengerBridge.getSettings();
+      const defaultSettings = {
+        hide_default_launcher: true,
+        horizontal_padding: 0,
+        vertical_padding: 0
+      };
+      const settings = intercomMessengerBridge.getSettings();
 
-  window.intercomSettings = Object.assign({}, defaultSettings, settings);
+      window.intercomSettings = Object.assign({}, defaultSettings, settings);
 
-  var w = window;
-  var ic = w.Intercom;
-  var isLoaded = false;
-  var retryTimer = null;
+      var w = window;
+      var ic = w.Intercom;
+      var isLoaded = false;
+      var retryTimer = null;
 
-  if (typeof ic === "function") {
-    ic('reattach_activator');
-    ic('update', intercomSettings);
-    isLoaded = true;
-  } else {
-    var d = document;
-    var i = function () {
-      i.c(arguments)
-    };
-    i.q = [];
-    i.c = function (args) {
-      i.q.push(args)
-    };
-    w.Intercom = i;
-    function l() {
-      var s = d.createElement('script');
-      s.type = 'text/javascript';
-      s.async = true;
-      s.src = 'https://widget.intercom.io/widget/dznlehsz';
-      s.onload = function () {
-        if (retryTimer !== null) {
-          clearInterval(retryTimer);
-          retryTimer = null;
+      if (typeof ic === "function") {
+        ic('reattach_activator');
+        ic('update', intercomSettings);
+        isLoaded = true;
+      } else {
+        var d = document;
+        var i = function () {
+          i.c(arguments)
+        };
+        i.q = [];
+        i.c = function (args) {
+          i.q.push(args)
+        };
+        w.Intercom = i;
+        function l() {
+          var s = d.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          s.src = 'https://widget.intercom.io/widget/dznlehsz';
+          s.onload = function () {
+            if (retryTimer !== null) {
+              clearInterval(retryTimer);
+              retryTimer = null;
+            }
+            isLoaded = true
+            intercomMessengerBridge.notifyDidLoad();
+          }
+          var x = d.getElementsByTagName('script')[0];
+          x.parentNode.insertBefore(s, x);
         }
-        isLoaded = true
-        // window._bridge('IntercomDidLoad');
+        l()
+        retryTimer = setInterval(l, 5 * 60 * 1000);
       }
-      var x = d.getElementsByTagName('script')[0];
-      x.parentNode.insertBefore(s, x);
-    }
-    l()
-    retryTimer = setInterval(l, 5 * 60 * 1000);
-  }
 
-  intercomMessengerBridge.on('call-method', (methodName, arg1) => {
-    Intercom(methodName, arg1);
-  })
+      intercomMessengerBridge.on('call-method', (methodName, arg1) => {
+        Intercom(methodName, arg1);
+      })
 
-  Intercom('onUnreadCountChange', function (unreadCount) {
-    // window._bridge("IntercomUnreadChange", { count: unreadCount })
-  });
+      Intercom('onUnreadCountChange', function (unreadCount) {
+        intercomMessengerBridge.notifyUnreadCountChange(unreadCount);
+      });
 
-  Intercom('onHide', function () {
-    // window._bridge("IntercomDidHide")
-  });
-</script>
+      Intercom('onHide', function () {
+        intercomMessengerBridge.notifyDidHide();
+      });
+
+      Intercom('onShow', function () {
+        intercomMessengerBridge.notifyDidShow();
+      });
+
+    </script>
+  </head>
+  <body>
+    <!-- This overrides CSS to load in full screen -->
+    <!-- It should stay in bottom of body so that it really overrides -->
+    <style>
+      #intercom-container .intercom-messenger-frame {
+        z-index: 2147483001!important;
+        width: 100%!important;
+        height: 100%!important;
+        max-height: none!important;
+        top: 0!important;
+        left: 0!important;
+        right: 0!important;
+        bottom: 0!important;
+        border-radius: 0!important;
+      }
+    </style>
+  </body>
+</html>
+
