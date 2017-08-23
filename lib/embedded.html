@@ -1,10 +1,10 @@
 <script>
-  const { IntercomMessengerBridge } = window;
+  const { intercomMessengerBridge } = window;
 
   const defaultSettings = {
     hide_default_launcher: true
   };
-  const settings = IntercomMessengerBridge.getSettings();
+  const settings = intercomMessengerBridge.getSettings();
 
   window.intercomSettings = Object.assign({}, defaultSettings, settings);
 
