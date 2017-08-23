@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Electron Boilerplate</title>
+</head>
+<body>
+  <style>
+    webview {
+      height: 200px;
+      width: 200px;
+    }
+  </style>
+
+  <div class="container">
+    <webview src="electron-intercom-messenger://embedded"></webview>
+    <!-- <webview src="../lib/embedded.html"></webview> -->
+  </div>
+  <script>
+    setTimeout(() => Array.from(document.getElementsByTagName('webview')).forEach(w => w.openDevTools()), 1000)
+  </script>
+</body>
+</html>
