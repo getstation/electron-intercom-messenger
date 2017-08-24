@@ -14,6 +14,14 @@ $ npm i -S electron-intercom-messenger
 
 > TODO
 
+### Run the example
+
+```bash
+$ git clone https://github.com/getstation/electron-intercom-messenger
+$ cd electron-intercom-messenger
+$ npm i
+$ INTERCOM_APP_ID={your intercom app_id} npm run example
+```
 
 ## API
 
