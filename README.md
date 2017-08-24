@@ -1,7 +1,22 @@
-# TODOs
-- [x] load the emebeded via protocolhandler
-- [x] load the config via IPC
-- [x] communciate show/hide via IPC
-- [x] add onUnreadCountChange, loaded etc
-- [ ] add proper readme
-- [ ] publish
+# electron-intercom-messenger
+
+> Integrate the Intercom messenger widget into an electron application.
+
+[![NPM Version][npm-image]][npm-url]
+
+## Install
+
+```bash
+$ npm i -S electron-intercom-messenger
+```
+
+## Usage
+
+> TODO
+
+
+## API
+
+> TODO
+
+## License
