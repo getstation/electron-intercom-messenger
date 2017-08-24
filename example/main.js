@@ -4,9 +4,9 @@ const { INTERCOM_APP_ID } = process.env;
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
+const BrowserWindow = electron.BrowserWindow;
 
-const electronIntercomMessenger = require('../lib/index.js')
+const electronIntercomMessenger = require('../lib/index.js');
 
 const path = require('path')
 const url = require('url')
@@ -47,8 +47,24 @@ app.on('ready', () => {
   const i = electronIntercomMessenger.start({
     app_id: INTERCOM_APP_ID
   });
-  setTimeout(() => i.show(), 10000)
+ 
+   i.on('did-load', () => {
+    i.show();
+    console.log('Intercom did load')
+  })
+  i.on('did-show', () => {
+    console.log('did-show');
+  })
+  i.on('unread-count-change', unreadCount => console.log('Intercom unreadCount', unreadCount))
 
+  intercomWindow = new BrowserWindow({
+    width: 300,
+    height: 500,
+    webPreferences: {
+      preload: path.join(__dirname, '../lib/preload')
+    }
+  })
+  intercomWindow.loadURL('electron-intercom-messenger://embedded')
 });
 
 // Quit when all windows are closed.
