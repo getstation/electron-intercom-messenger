@@ -1,4 +1,6 @@
-const electron = require('electron')
+const electron = require('electron');
+const { INTERCOM_APP_ID } = process.env;
+
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -43,8 +45,7 @@ function createWindow () {
 app.on('ready', createWindow)
 app.on('ready', () => {
   const i = electronIntercomMessenger.start({
-    app_id: "dznlehsz",
-    hide_default_launcher: true
+    app_id: INTERCOM_APP_ID
   });
   setTimeout(() => i.show(), 10000)
 
