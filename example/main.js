@@ -49,8 +49,8 @@ app.on('ready', () => {
   });
  
    i.on('did-load', () => {
+     console.log('Intercom did load')
     i.show();
-    console.log('Intercom did load')
   })
   i.on('did-show', () => {
     console.log('did-show');
@@ -61,7 +61,7 @@ app.on('ready', () => {
     width: 300,
     height: 500,
     webPreferences: {
-      preload: path.join(__dirname, '../lib/preload')
+      preload: path.join(__dirname, '../preload')
     }
   })
   intercomWindow.loadURL('electron-intercom-messenger://embedded')
