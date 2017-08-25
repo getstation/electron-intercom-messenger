@@ -46,7 +46,9 @@ app.on('ready', createWindow)
 app.on('ready', () => {
   const i = electronIntercomMessenger.start({
     app_id: INTERCOM_APP_ID
-  });
+  }, {
+      injectCSSInMessengerFrame: '.intercom-header-buttons-close-visible { visibility: hidden; }'
+    });
  
    i.on('did-load', () => {
      console.log('Intercom did load')

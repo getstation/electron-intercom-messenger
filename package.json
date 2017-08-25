@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^1.7.5"
+  },
+  "dependencies": {
+    "selector-observer": "^1.1.0"
   }
 }
