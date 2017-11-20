@@ -58,12 +58,17 @@ app.on('ready', () => {
     console.log('did-show');
   })
   i.on('unread-count-change', unreadCount => console.log('Intercom unreadCount', unreadCount))
-
+  i.on('new-window', (e, url, frameName, disposition, options, additionalFeatures) => {
+    e.preventDefault();
+  
+    console.log('New window', url);
+  });
   intercomWindow = new BrowserWindow({
     width: 300,
     height: 500,
     webPreferences: {
-      preload: path.join(__dirname, '../preload')
+      preload: path.join(__dirname, '../preload'),
+      nativeWindowOpen: true
     }
   })
   intercomWindow.loadURL('electron-intercom-messenger://embedded')
