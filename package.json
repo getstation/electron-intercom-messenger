@@ -1,6 +1,6 @@
 {
   "name": "electron-intercom-messenger",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Integrate the Intercom messenger widget into an electron application",
   "main": "lib/index.js",
   "scripts": {
